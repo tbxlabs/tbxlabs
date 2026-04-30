@@ -123,36 +123,39 @@
 
             useEffect(() => {
                 emailjs.init("PjPhgNbky2_QyqtQ5");
-                const form = document.getElementById('form');
+            }, []);
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+                console.log('Form submitted');
+                
+                const form = event.target;
                 const btn = document.getElementById('button');
-                if (form && btn) {
-                    form.addEventListener('submit', function(event) {
-                        event.preventDefault();
-                        console.log('Form submitted');
-                        const formData = new FormData(form);
-                        console.log('Form data being sent:', Object.fromEntries(formData));
-                        btn.textContent = 'Enviando...';
-                        btn.disabled = true;
-                        emailjs.sendForm('service_4g65tse', 'template_i40mu9j', form)
-                            .then(() => {
-                                console.log('Email sent successfully');
-                                btn.textContent = 'Enviar Mensaje';
-                                btn.disabled = false;
-                                alert('¡Enviado con éxito!');
-                                form.reset();
-                            }, (err) => {
-                                console.log('Email send error:', err);
-                                btn.textContent = 'Enviar Mensaje';
-                                btn.disabled = false;
-                                // Fallback a mailto si EmailJS falla
-                                const formData = new FormData(form);
-                                const nombre = formData.get('from_name');
-                                const empresa = formData.get('empresa');
-                                const email = formData.get('email');
-                                const mensaje = formData.get('message');
-                                
-                                const subject = `Nuevo proyecto de ${nombre}${empresa ? ` - ${empresa}` : ''}`;
-                                const body = `Hola!
+                const formData = new FormData(form);
+                
+                console.log('Form data being sent:', Object.fromEntries(formData));
+                btn.textContent = 'Enviando...';
+                btn.disabled = true;
+                
+                emailjs.sendForm('service_4g65tse', 'template_i40mu9j', form)
+                    .then(() => {
+                        console.log('Email sent successfully');
+                        btn.textContent = 'Enviar Mensaje';
+                        btn.disabled = false;
+                        alert('¡Enviado con éxito!');
+                        form.reset();
+                    }, (err) => {
+                        console.log('Email send error:', err);
+                        btn.textContent = 'Enviar Mensaje';
+                        btn.disabled = false;
+                        // Fallback a mailto si EmailJS falla
+                        const nombre = formData.get('from_name');
+                        const empresa = formData.get('empresa');
+                        const email = formData.get('email');
+                        const mensaje = formData.get('message');
+                        
+                        const subject = `Nuevo proyecto de ${nombre}${empresa ? ` - ${empresa}` : ''}`;
+                        const body = `Hola!
 
 Nombre: ${nombre}
 ${empresa ? `Empresa/Negocio: ${empresa}` : ''}
@@ -163,12 +166,10 @@ ${mensaje}
 
 ---
 Enviado desde tbxtechnologies.github.io`;
-                                
-                                window.location.href = `tbxtechnologies2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                            });
+                        
+                        window.location.href = `mailto:tbxtechnologies2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                     });
-                }
-            }, []);
+            };
 
             const scrollToSection = (id) => {
                 setIsMenuOpen(false);
@@ -688,7 +689,7 @@ Enviado desde tbxtechnologies.github.io`;
                                 </div>
 
                                 {/* Form - Se añadió padding interno y mejor control de inputs */}
-                                <form id="form" className="space-y-4 bg-slate-900/50 p-5 md:p-8 rounded-2xl border border-slate-700/50 w-full">
+                                <form id="form" onSubmit={handleSubmit} className="space-y-4 bg-slate-900/50 p-5 md:p-8 rounded-2xl border border-slate-700/50 w-full">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div className="space-y-2">
                                             <label className="text-sm text-slate-400">Nombre</label>
