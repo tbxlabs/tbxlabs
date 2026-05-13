@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare | Clínica Veterinaria de Excelencia</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="PetCare es tu clínica veterinaria de confianza. Ofrecemos consultas, vacunación, cirugías, emergencias 24/7 y peluquería con amor y profesionalismo.">
+    <meta name="keywords" content="veterinaria, clínica veterinaria, cuidado de mascotas, emergencias veterinarias, vacunas para perros, peluquería canina, PetCare">
+    <meta name="author" content="PetCare Veterinaria">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Redes Sociales -->
+    <meta property="og:title" content="PetCare | Cuidamos a tu mejor amigo">
+    <meta property="og:description" content="Atención veterinaria de primera calidad con un trato humano y cariñoso para tus mascotas.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:url" content="https://www.petcare-ejemplo.com">
+    <meta property="og:type" content="website">
+
+    <!-- Schema Markup para Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VeterinaryCare",
+      "name": "PetCare Veterinaria",
+      "image": "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=1200",
+      "@id": "",
+      "url": "https://www.petcare-ejemplo.com",
+      "telephone": "+521234567890",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Principal 123",
+        "addressLocality": "Ciudad",
+        "addressRegion": "Estado",
+        "postalCode": "12345",
+        "addressCountry": "MX"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      }
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Configuración de Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            DEFAULT: '#0D9488', // Teal 600
+                            light: '#14B8A6', // Teal 500
+                            dark: '#0F766E', // Teal 700
+                        },
+                        secondary: '#FDBA74', // Orange 300 (Pastel complementario)
+                        dark: '#0f172a',
+                        darker: '#020617',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos Personalizados (Animaciones y Extras) -->
+    <style>
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Utilidades para animaciones de Scroll (Intersection Observer) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        /* Retrasos escalonados para las tarjetas */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Efecto Parallax responsivo */
+        .bg-parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        @media (max-width: 768px) {
+            .bg-parallax {
+                background-attachment: scroll; /* Mejora rendimiento en móviles */
+            }
+        }
+
+        /* Ocultar barra de desplazamiento para modal de galería */
+        body.modal-open {
+            overflow: hidden;
+        }
+        
+        /* Floating animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-darker dark:text-slate-200 transition-colors duration-300 font-sans antialiased selection:bg-primary selection:text-white">
+
+    <!-- ==================== HEADER & NAVBAR ==================== -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 glass">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-2 group">
+                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center text-xl group-hover:bg-primary-dark transition-colors">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <span class="font-bold text-2xl text-primary dark:text-primary-light tracking-tight">Pet<span class="text-slate-800 dark:text-white">Care</span></span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#inicio" class="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary-light font-semibold transition-colors">Inicio</a>
+                    <a href="#nosotros" class="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary-light font-semibold transition-colors">Nosotros</a>
+                    <a href="#servicios" class="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary-light font-semibold transition-colors">Servicios</a>
+                    <a href="#galeria" class="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary-light font-semibold transition-colors">Galería</a>
+                    <a href="#contacto" class="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary-light font-semibold transition-colors">Contacto</a>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" type="button" class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2.5 transition-colors focus:outline-none" aria-label="Cambiar tema">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon hidden text-lg"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun hidden text-lg"></i>
+                    </button>
+
+                    <a href="#contacto" class="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-bold shadow-lg shadow-primary/30 transform hover:-translate-y-0.5 transition-all">Agenda tu Cita</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden gap-4">
+                    <button id="theme-toggle-mobile" type="button" class="text-slate-500 dark:text-slate-400 p-2" aria-label="Cambiar tema">
+                        <i class="fas fa-moon dark:hidden text-lg"></i>
+                        <i class="fas fa-sun hidden dark:block text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-primary focus:outline-none p-2" aria-label="Menú">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-dark border-t border-slate-200 dark:border-slate-800 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#inicio" class="mobile-link block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Inicio</a>
+                <a href="#nosotros" class="mobile-link block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Nosotros</a>
+                <a href="#servicios" class="mobile-link block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Servicios</a>
+                <a href="#galeria" class="mobile-link block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Galería</a>
+                <a href="#contacto" class="mobile-link block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Contacto</a>
+                <div class="mt-4 px-3">
+                    <a href="#contacto" class="mobile-link block w-full text-center bg-primary text-white px-5 py-3 rounded-full font-bold shadow-md">Agendar Cita</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="inicio" class="relative h-screen flex items-center justify-center bg-parallax" style="background-image: url('https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=1920');">
+        <!-- Overlay oscuro para legibilidad -->
+        <div class="absolute inset-0 bg-slate-900/60 dark:bg-slate-900/80"></div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <div class="inline-block mb-4 px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 text-white text-sm font-semibold tracking-wide uppercase reveal">
+                <i class="fas fa-heart text-red-400 mr-2"></i> Clínica Veterinaria 24/7
+            </div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-6 reveal delay-100">
+                Cuidamos a tu mejor amigo <br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-light to-secondary">como si fuera nuestro</span>
+            </h1>
+            <p class="text-lg md:text-2xl text-slate-200 mb-10 font-light max-w-2xl mx-auto reveal delay-200">
+                Atención médica especializada, prevención y mucho amor para asegurar una vida larga y feliz a tu mascota.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal delay-300">
+                <a href="#contacto" class="bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg shadow-primary/40 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                    <i class="far fa-calendar-check"></i> Reservar Cita
+                </a>
+                <a href="#servicios" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-full font-bold text-lg transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                    Ver Servicios
+                </a>
+            </div>
+        </div>
+
+        <!-- Forma ondulada decorativa inferior -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
+            <svg class="relative block w-full h-12 md:h-24" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.08,130.83,123.63,196.36,107.82,243.34,96.65,286.6,81.46,321.39,56.44Z" class="fill-slate-50 dark:fill-darker"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT US SECTION ==================== -->
+    <section id="nosotros" class="py-20 md:py-32 relative overflow-hidden">
+        <!-- Decoración de fondo -->
+        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Imagen -->
+                <div class="relative reveal-left">
+                    <div class="relative rounded-3xl overflow-hidden shadow-2xl z-10 border-4 border-white dark:border-slate-800">
+                        <img src="https://images.unsplash.com/photo-1628009368231-7bb7cbcb8127?auto=format&fit=crop&q=80&w=800" alt="Veterinaria examinando a un perro" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" loading="lazy">
+                    </div>
+                    <!-- Tarjeta flotante -->
+                    <div class="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl z-20 animate-float border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center text-secondary text-2xl">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-2xl text-slate-800 dark:text-white">+15</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 font-semibold">Años de Experiencia</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenido de Texto -->
+                <div class="reveal-right">
+                    <h4 class="text-primary font-bold tracking-wider uppercase mb-2">Sobre Nosotros</h4>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-6 leading-tight">
+                        Pasión por los animales, <br><span class="text-primary">excelencia en medicina.</span>
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-lg leading-relaxed">
+                        En PetCare entendemos que tu mascota es parte de tu familia. Por eso, hemos creado un espacio donde el amor por los animales se une con la tecnología veterinaria más avanzada y un equipo de profesionales altamente cualificados.
+                    </p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-8 text-lg leading-relaxed">
+                        Nuestro compromiso es brindar un cuidado integral, desde la prevención hasta tratamientos complejos, asegurando siempre el bienestar y la tranquilidad de tus peludos.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1 text-xl"></i>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Equipo de especialistas certificados.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1 text-xl"></i>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Instalaciones modernas y amigables con las mascotas.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1 text-xl"></i>
+                            <span class="text-slate-700 dark:text-slate-300 font-medium">Trato personalizado y empático.</span>
+                        </li>
+                    </ul>
+
+                    <a href="#equipo" class="inline-flex items-center gap-2 text-primary font-bold text-lg hover:text-primary-dark transition-colors group">
+                        Conoce a nuestro equipo 
+                        <i class="fas fa-arrow-right transform group-hover:translate-x-2 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES SECTION ==================== -->
+    <section id="servicios" class="py-20 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h4 class="text-primary font-bold tracking-wider uppercase mb-2">Nuestros Servicios</h4>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-6">Cuidado integral para tu mascota</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg">
+                    Ofrecemos una amplia gama de servicios veterinarios para cubrir todas las etapas de la vida de tu compañero.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Servicio 1 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-100">
+                    <div class="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Consultas Generales</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Chequeos rutinarios, diagnósticos precisos y seguimiento médico para mantener la salud óptima de tu mascota.
+                    </p>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-200">
+                    <div class="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-syringe"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Vacunación</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Esquemas de vacunación completos y personalizados, desparasitación interna y externa para prevenir enfermedades.
+                    </p>
+                </div>
+
+                <!-- Servicio 3 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-300">
+                    <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-2xl flex items-center justify-center text-red-500 text-3xl mb-6 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Emergencias 24/7</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Atención crítica inmediata a cualquier hora del día. Porque las emergencias no tienen horario, nosotros tampoco.
+                    </p>
+                </div>
+
+                <!-- Servicio 4 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-100">
+                    <div class="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-scissors"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Peluquería Canina</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Baños terapéuticos, cortes de raza, limpieza de oídos y corte de uñas. Dejamos a tu mascota hermosa y limpia.
+                    </p>
+                </div>
+
+                <!-- Servicio 5 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-200">
+                    <div class="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Laboratorio Clínico</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Análisis de sangre, orina, heces, radiografías y ecografías con resultados rápidos para diagnósticos certeros.
+                    </p>
+                </div>
+
+                <!-- Servicio 6 -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-3xl p-8 border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-2 group reveal delay-300">
+                    <div class="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Odontología</h3>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                        Limpieza dental con ultrasonido, extracciones y prevención de enfermedades periodontales.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY SECTION ==================== -->
+    <section id="galeria" class="py-20 bg-slate-50 dark:bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                <div class="max-w-2xl">
+                    <h4 class="text-primary font-bold tracking-wider uppercase mb-2">Galería</h4>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 dark:text-white">Pacientes Felices</h2>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <p class="text-slate-600 dark:text-slate-400 font-medium">Síguenos en <a href="#" class="text-primary hover:underline"><i class="fab fa-instagram"></i> @PetCareVet</a></p>
+                </div>
+            </div>
+
+            <!-- Grid de Galería -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Imagen 1 -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer reveal delay-100" onclick="openLightbox('https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800')">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=400" alt="Perro Beagle" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+                
+                <!-- Imagen 2 (Grande) -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square md:col-span-2 cursor-pointer reveal delay-200" onclick="openLightbox('https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=1200')">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800" alt="Gato curioso" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Imagen 3 -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer reveal delay-300" onclick="openLightbox('https://images.unsplash.com/photo-1537151608804-ea2f1ea14a15?auto=format&fit=crop&q=80&w=800')">
+                    <img src="https://images.unsplash.com/photo-1537151608804-ea2f1ea14a15?auto=format&fit=crop&q=80&w=400" alt="Perro Husky" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Imagen 4 -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer reveal delay-100" onclick="openLightbox('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=800')">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=400" alt="Cachorro en consulta" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Imagen 5 -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer reveal delay-200" onclick="openLightbox('https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&q=80&w=800')">
+                    <img src="https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&q=80&w=400" alt="Gato con veterinario" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+
+                <!-- Imagen 6 -->
+                <div class="relative group overflow-hidden rounded-2xl aspect-square cursor-pointer reveal delay-300 md:col-span-2 lg:col-span-1" onclick="openLightbox('https://images.unsplash.com/photo-1629957655562-2826ea1994e0?auto=format&fit=crop&q=80&w=800')">
+                    <img src="https://images.unsplash.com/photo-1629957655562-2826ea1994e0?auto=format&fit=crop&q=80&w=400" alt="Perro feliz en parque" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                    <div class="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="fas fa-search-plus text-white text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden bg-black/90 flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-primary transition-colors focus:outline-none">
+            <i class="fas fa-times text-4xl"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Vista ampliada" class="max-w-[90%] max-h-[90vh] object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300">
+    </div>
+
+    <!-- ==================== CALL TO ACTION ==================== -->
+    <section class="py-20 bg-primary relative overflow-hidden">
+        <!-- Patrón de fondo (Huellas) -->
+        <div class="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="paws" width="100" height="100" patternUnits="userSpaceOnUse">
+                        <path d="M20,30 Q25,20 30,30 Q35,40 25,45 Q15,40 20,30 M45,15 Q50,5 55,15 Q60,25 50,30 Q40,25 45,15 M70,15 Q75,5 80,15 Q85,25 75,30 Q65,25 70,15 M95,30 Q100,20 105,30 Q110,40 100,45 Q90,40 95,30 M35,60 Q50,45 65,60 Q80,75 50,90 Q20,75 35,60" fill="currentColor" transform="scale(0.5)"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#paws)" />
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center reveal">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">¿Tu mascota necesita atención?</h2>
+            <p class="text-primary-light text-white/90 text-xl mb-10 max-w-2xl mx-auto font-medium">
+                No esperes más. Dale a tu mejor amigo el cuidado que se merece. Agenda la cita de tu mascota hoy mismo.
+            </p>
+            <a href="#contacto" class="inline-block bg-white text-primary hover:bg-slate-50 px-10 py-4 rounded-full font-bold text-lg shadow-xl shadow-black/10 transform hover:-translate-y-1 transition-all">
+                Agenda tu Cita Ahora <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="contacto" class="py-20 md:py-32 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h4 class="text-primary font-bold tracking-wider uppercase mb-2">Contacto</h4>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-800 dark:text-white mb-6">Estamos aquí para ayudarte</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-lg">
+                    Visítanos, llámanos o envíanos un mensaje. Responderemos lo antes posible.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-slate-50 dark:bg-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-700 reveal">
+                
+                <!-- Info y Formulario -->
+                <div class="p-8 md:p-12">
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-6">Envíanos un mensaje</h3>
+                    
+                    <form id="contactForm" class="space-y-6" onsubmit="event.preventDefault(); submitForm();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Nombre completo</label>
+                                <input type="text" id="name" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Ej. Juan Pérez">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Teléfono</label>
+                                <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Ej. 555 123 4567">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="service" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Servicio de interés</label>
+                            <select id="service" class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all">
+                                <option value="">Selecciona una opción</option>
+                                <option value="consulta">Consulta General</option>
+                                <option value="vacunacion">Vacunación</option>
+                                <option value="peluqueria">Peluquería</option>
+                                <option value="emergencia">Emergencia</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Mensaje</label>
+                            <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2">
+                            <span>Enviar Mensaje</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        
+                        <!-- Mensaje de Éxito (Oculto) -->
+                        <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                            <span class="block sm:inline">¡Mensaje enviado con éxito! Nos contactaremos pronto.</span>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Mapa e Info de Contacto -->
+                <div class="bg-slate-100 dark:bg-slate-800 flex flex-col h-full border-l border-slate-200 dark:border-slate-700">
+                    <!-- Mapa Embebido (Ficticio para demostración) -->
+                    <div class="h-64 md:h-1/2 w-full relative">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.661757876251!2d-99.1711244850934!3d19.4270244868875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff35f5bd1563%3A0x6c366f0e2de02ff7!2sEl%20Ángel%20de%20la%20Independencia!5e0!3m2!1ses!2smx!4v1620000000000!5m2!1ses!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" class="absolute inset-0 grayscale hover:grayscale-0 transition-all duration-500"></iframe>
+                    </div>
+                    
+                    <div class="p-8 md:p-12 flex-grow flex flex-col justify-center space-y-8">
+                        <!-- Info item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary text-xl flex-shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg">Ubicación</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mt-1">Av. Paseo de los Perritos 123,<br>Col. Mascotas, CP 12345</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Info item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary text-xl flex-shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg">Teléfonos</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mt-1">
+                                    <a href="tel:+525551234567" class="hover:text-primary transition-colors">Emergencias: (555) 123-4567</a><br>
+                                    <a href="tel:+525557654321" class="hover:text-primary transition-colors">Citas: (555) 765-4321</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Info item -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary text-xl flex-shrink-0">
+                                <i class="far fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-white text-lg">Horarios</h4>
+                                <p class="text-slate-600 dark:text-slate-400 mt-1">
+                                    Lunes a Sábado: 8:00 AM - 8:00 PM<br>
+                                    <span class="text-red-500 font-semibold mt-1 block">Urgencias: 24 Horas / 7 Días</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-slate-900 text-slate-300 pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center gap-2">
+                        <i class="fas fa-paw text-primary text-2xl"></i>
+                        <span class="font-bold text-2xl text-white tracking-tight">Pet<span class="text-primary">Care</span></span>
+                    </a>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Comprometidos con la salud y felicidad de tus mascotas. Ofrecemos medicina veterinaria integral con la mejor tecnología y calor humano.
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-primary hover:text-white transition-all"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Enlaces Rápidos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Sobre Nosotros</a></li>
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Servicios</a></li>
+                        <li><a href="#galeria" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Galería</a></li>
+                        <li><a href="#contacto" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Contacto</a></li>
+                    </ul>
+                </div>
+
+                <!-- Servicios Footer -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Nuestros Servicios</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Consulta General</a></li>
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Vacunación</a></li>
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Cirugía</a></li>
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Laboratorio Clínico</a></li>
+                        <li><a href="#servicios" class="hover:text-primary transition-colors flex items-center gap-2"><i class="fas fa-chevron-right text-xs text-primary"></i> Peluquería Canina</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">Boletín Informativo</h4>
+                    <p class="text-slate-400 text-sm mb-4">Suscríbete para recibir consejos de salud y ofertas especiales para tu mascota.</p>
+                    <form class="flex" onsubmit="event.preventDefault();">
+                        <input type="email" placeholder="Tu correo electrónico" class="bg-slate-800 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary w-full border border-slate-700">
+                        <button type="submit" class="bg-primary hover:bg-primary-dark px-4 py-2 rounded-r-lg transition-colors text-white">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2024 PetCare Veterinaria. Todos los derechos reservados.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-white transition-colors">Aviso de Privacidad</a>
+                    <a href="#" class="hover:text-white transition-colors">Términos y Condiciones</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== FLOATING ELEMENTS ==================== -->
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/525551234567" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 left-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform duration-300 animate-bounce" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 z-50 bg-slate-800 dark:bg-slate-700 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl shadow-lg hover:bg-primary transition-all duration-300 opacity-0 translate-y-10 pointer-events-none" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. DARK MODE TOGGLE ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const htmlElement = document.documentElement;
+
+            // Revisar preferencias guardadas o sistema
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+            } else {
+                htmlElement.classList.remove('dark');
+                darkIcon.classList.remove('hidden');
+            }
+
+            const toggleTheme = () => {
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        htmlElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        htmlElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+                } else {
+                    if (htmlElement.classList.contains('dark')) {
+                        htmlElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        htmlElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+            };
+
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+
+            // --- 2. MOBILE MENU ---
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            // Cerrar menú móvil al hacer clic en un enlace
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+
+
+            // --- 3. STICKY NAVBAR & BACK TO TOP ---
+            const navbar = document.getElementById('navbar');
+            const backToTopBtn = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', () => {
+                // Navbar styles on scroll
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                    navbar.classList.replace('py-4', 'py-0'); // Reducir padding si existiera
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+
+                // Back to top visibility
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                }
+            });
+
+            // Acción del botón Back to Top
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+
+            // --- 4. SCROLL ANIMATIONS (Intersection Observer) ---
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+            const revealOptions = {
+                threshold: 0.15, // Activa cuando el 15% del elemento es visible
+                rootMargin: "0px 0px -50px 0px" // Margen inferior para disparar antes de que llegue al borde
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        // Opcional: dejar de observar una vez animado
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+        });
+
+        // --- 5. LIGHTBOX FUNCTIONALITY ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(imageSrc) {
+            lightboxImg.src = imageSrc;
+            lightbox.classList.remove('hidden');
+            document.body.classList.add('modal-open');
+            // Timeout para la transición
+            setTimeout(() => {
+                lightbox.classList.add('opacity-100');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('opacity-100');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            }, 300);
+        }
+
+        // Cerrar lightbox al hacer clic fuera de la imagen
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Cerrar con tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if(e.key === "Escape" && !lightbox.classList.contains('hidden')) {
+                closeLightbox();
+            }
+        });
+
+        // --- 6. FORM VALIDATION (Simulación) ---
+        function submitForm() {
+            const btn = document.querySelector('#contactForm button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            // Estado de carga
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+            
+            // Simular petición AJAX
+            setTimeout(() => {
+                document.getElementById('successMessage').classList.remove('hidden');
+                document.getElementById('contactForm').reset();
+                
+                // Restaurar botón
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Ocultar mensaje después de 5 segundos
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.add('hidden');
+                }, 5000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

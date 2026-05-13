@@ -1,0 +1,20 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Carpetas de dependencias (si las hay)
+node_modules/
+.npm/
+
+# Archivos de IDE
+.vscode/settings.json
+.idea/
+
+# Archivos de backup
+*.bak
+*~
